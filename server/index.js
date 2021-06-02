@@ -9,6 +9,7 @@ app.use(morgan('dev'));
 
 //static middleware
 app.use(express.static(path.join(__dirname, '../public/')));
+app.use(express.static(path.join(__dirname, '../games/jump-demo/assets/')));
 
 //body-parsing middleware
 app.use(express.json());

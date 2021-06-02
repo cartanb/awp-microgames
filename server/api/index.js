@@ -1,7 +1,22 @@
 const router = require('express').Router();
+const path = require('path');
 
 router.get('/', (req, res, next) => {
-  res.send('hello world');
+  try {
+    res.send('hello world');
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/assets/:name', (req, res, next) => {
+  try {
+    res.sendFile(
+      path.join(__dirname, `/../../games/jump-demo/assets/${req.params.name}`)
+    );
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.use((req, res, next) => {
