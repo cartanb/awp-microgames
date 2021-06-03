@@ -10,9 +10,8 @@ ReactDOM.render(
   <Provider store={store}>
     <div>
       <span>hello world!</span>
+      <div id="game"></div>
     </div>
   </Provider>,
   document.getElementById('app')
 );
-
-export default jumpDemo;

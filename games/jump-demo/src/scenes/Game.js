@@ -7,6 +7,10 @@ class Game extends Phaser.Scene {
   /** @type {Phaser.Physics.Arcade.Sprite} */
   player;
 
+  failedGame = false;
+
+  timerId = '';
+
   constructor() {
     super('game');
   }
@@ -92,6 +96,11 @@ class Game extends Phaser.Scene {
     }
 
     this.horizontalWrap(this.player);
+
+    const bottomPlat = this.findBottomPlatform();
+    if (this.player.y > bottomPlat.y + 75) {
+      this.failedGame = true;
+    }
   }
 
   timerStart(timerNum = 5) {
@@ -99,10 +108,12 @@ class Game extends Phaser.Scene {
     let value = `TIME: ${num}`;
     this.timer.text = value;
     setTimeout(() => {
-      setInterval(() => {
+      this.timerId = setInterval(() => {
         if (num > 0) {
           value = `TIME: ${--num}`;
           this.timer.text = value;
+        } else {
+          this.gameEnd();
         }
       }, 1000);
       this.verb.text = '';
@@ -118,6 +129,26 @@ class Game extends Phaser.Scene {
     } else if (sprite.x > gameWidth + quarterWidth) {
       sprite.x = -(quarterWidth / 2);
     }
+  }
+
+  findBottomPlatform() {
+    const platforms = this.platforms.getChildren();
+    let bottom = platforms[0];
+
+    for (let i = 1; i < platforms.length; i++) {
+      const platform = platforms[i];
+      if (platform.y < bottom.y) {
+        continue;
+      }
+      bottom = platform;
+    }
+    return bottom;
+  }
+
+  gameEnd() {
+    console.log(!this.failedGame ? 1 : -1);
+    clearInterval(this.timerId);
+    this.sys.game.destroy(true);
   }
 }
 
