@@ -57,7 +57,12 @@ class Game extends Phaser.Scene {
       .setScrollFactor(0)
       .setOrigin(0.8, 0);
 
-    this.timerStart(10);
+    this.verb = this.add
+      .text(320, 190, 'JUMP!', style)
+      .setScrollFactor(0)
+      .setOrigin(0.5, 0.5);
+
+    this.timerStart();
   }
 
   update() {
@@ -93,11 +98,14 @@ class Game extends Phaser.Scene {
     let num = timerNum;
     let value = `TIME: ${num}`;
     this.timer.text = value;
-    setInterval(() => {
-      if (num > 0) {
-        value = `TIME: ${--num}`;
-        this.timer.text = value;
-      }
+    setTimeout(() => {
+      setInterval(() => {
+        if (num > 0) {
+          value = `TIME: ${--num}`;
+          this.timer.text = value;
+        }
+      }, 1000);
+      this.verb.text = '';
     }, 1000);
   }
 
