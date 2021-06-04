@@ -4,14 +4,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './redux';
-import jumpDemo from '../games/jump-demo/src/main';
+import App from './components/App';
 
 ReactDOM.render(
   <Provider store={store}>
-    <div>
-      <span>hello world!</span>
-      <div id="game"></div>
-    </div>
+    <App /> 
   </Provider>,
   document.getElementById('app')
 );

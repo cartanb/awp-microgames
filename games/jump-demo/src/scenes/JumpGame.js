@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-class Game extends Phaser.Scene {
+class JumpGame extends Phaser.Scene {
   /** @type {Phaser.Physics.Arcade.StaticGroup} */
   platforms;
 
@@ -152,4 +152,4 @@ class Game extends Phaser.Scene {
   }
 }
 
-export default Game;
+export default JumpGame;
