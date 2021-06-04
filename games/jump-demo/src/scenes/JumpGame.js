@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import store, { endMinigame } from '../../../../client/redux';
 
 class JumpGame extends Phaser.Scene {
   /** @type {Phaser.Physics.Arcade.StaticGroup} */
@@ -146,7 +147,7 @@ class JumpGame extends Phaser.Scene {
   }
 
   gameEnd() {
-    console.log(!this.failedGame ? 1 : -1);
+    store.dispatch(endMinigame(!this.failedGame ? 1 : -1));
     clearInterval(this.timerId);
     this.sys.game.destroy(true);
   }

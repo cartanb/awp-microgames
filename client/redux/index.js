@@ -4,14 +4,31 @@ import thunkMiddleware from 'redux-thunk';
 
 //ACTION TYPES
 const START_GAME = 'START_GAME';
+const END_GAME = 'END_GAME';
 const START_MINIGAME = 'START_MINIGAME';
+const END_MINIGAME = 'END_MINIGAME';
+const WON_MINIGAME = 'WON_MINIGAME';
+const LOST_MINIGAME = 'LOST_MINIGAME';
 
 //ACTION CREATORS
 export const startGame = () => ({
   type: START_GAME,
 });
+export const endGame = () => ({
+  type: END_GAME,
+});
 export const startMinigame = () => ({
   type: START_MINIGAME,
+});
+export const endMinigame = (result) => ({
+  type: END_MINIGAME,
+  result,
+});
+export const wonMinigame = () => ({
+  type: WON_MINIGAME,
+});
+export const lostMinigame = () => ({
+  type: LOST_MINIGAME,
 });
 
 //INITIAL STATE
@@ -27,9 +44,21 @@ const initialState = {
 function appReducer(state = initialState, action) {
   switch (action.type) {
     case START_GAME:
-      return { ...state, gameRunning: true };
+      return { ...initialState, gameRunning: true };
+    case END_GAME:
+      return { ...state, gameRunning: false };
     case START_MINIGAME:
       return { ...state, minigameRunning: true };
+    case END_MINIGAME:
+      return {
+        ...state,
+        minigameRunning: false,
+        lastGameResult: action.result,
+      };
+    case WON_MINIGAME:
+      return { ...state, score: state.score + 1 };
+    case LOST_MINIGAME:
+      return { ...state, lives: state.lives - 1 };
     default:
       return state;
   }

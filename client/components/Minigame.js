@@ -1,7 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import Phaser from 'phaser';
+import JumpGame from '../../games/jump-demo/src/scenes/JumpGame';
 
 const Minigame = () => {
-  return <div>MINIGAME PLACEHOLDER</div>;
+  useEffect(() => {
+    new Phaser.Game({
+      type: Phaser.AUTO,
+      width: 640,
+      height: 480,
+      parent: 'game',
+      scene: JumpGame,
+      physics: {
+        default: 'arcade',
+        arcade: {
+          gravity: { y: 200 },
+          debug: true,
+        },
+      },
+    });
+  }, []);
+
+  return (
+    <div>
+      <div id="game"></div>
+    </div>
+  );
 };
 
 export default Minigame;

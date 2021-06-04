@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { startMinigame } from '../redux';
+import { endGame, startMinigame, wonMinigame, lostMinigame } from '../redux';
 
 const Score = () => {
   const dispatch = useDispatch();
@@ -15,19 +15,27 @@ const Score = () => {
   useEffect(() => {
     setTimeout(() => {
       if (lastGameResult !== 0) {
-        //TODO: last game result, win/loss
+        if (lastGameResult > 0) dispatch(wonMinigame());
+        else dispatch(lostMinigame());
       }
     }, 1500);
-    timerId = setInterval(() => {
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
       if (timer > 0) {
         setTimer(timer - 1);
-        console.log(timer);
       } else {
-        clearInterval(timerId);
         dispatch(startMinigame());
       }
     }, 1000);
   }, [timer]);
+
+  useEffect(() => {
+    if (lives < 1) {
+      dispatch(endGame());
+    }
+  }, [lives]);
 
   return (
     <div>
