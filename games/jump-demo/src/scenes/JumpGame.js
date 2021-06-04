@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import store, { endMinigame } from '../../../../client/redux';
+import timerStart from './helperFuncs';
 
 class JumpGame extends Phaser.Scene {
   /** @type {Phaser.Physics.Arcade.StaticGroup} */
@@ -14,6 +15,7 @@ class JumpGame extends Phaser.Scene {
 
   constructor() {
     super('game');
+    this.timerStart = timerStart.bind(this);
   }
 
   preload() {
@@ -102,23 +104,6 @@ class JumpGame extends Phaser.Scene {
     if (this.player.y > bottomPlat.y + 75) {
       this.failedGame = true;
     }
-  }
-
-  timerStart(timerNum = 5) {
-    let num = timerNum;
-    let value = `TIME: ${num}`;
-    this.timer.text = value;
-    setTimeout(() => {
-      this.timerId = setInterval(() => {
-        if (num > 0) {
-          value = `TIME: ${--num}`;
-          this.timer.text = value;
-        } else {
-          this.gameEnd();
-        }
-      }, 1000);
-      this.verb.text = '';
-    }, 1000);
   }
 
   /** @param {Phaser.GameObjects.Sprite} sprite */
