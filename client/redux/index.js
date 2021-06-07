@@ -9,6 +9,8 @@ const START_MINIGAME = 'START_MINIGAME';
 const END_MINIGAME = 'END_MINIGAME';
 const WON_MINIGAME = 'WON_MINIGAME';
 const LOST_MINIGAME = 'LOST_MINIGAME';
+const ADD_TO_PLAYED = 'ADD_TO_PLAYED';
+const SHIFT_PLAYED = 'SHIFT_PLAYED';
 
 //ACTION CREATORS
 export const startGame = () => ({
@@ -30,6 +32,13 @@ export const wonMinigame = () => ({
 export const lostMinigame = () => ({
   type: LOST_MINIGAME,
 });
+export const addToPlayed = (minigame) => ({
+  type: ADD_TO_PLAYED,
+  minigame,
+});
+export const shiftPlayed = () => ({
+  type: SHIFT_PLAYED,
+});
 
 //INITIAL STATE
 const initialState = {
@@ -38,6 +47,7 @@ const initialState = {
   score: 0,
   lives: 4,
   lastGameResult: 0,
+  playedGames: [],
 };
 
 //REDUCER
@@ -59,6 +69,12 @@ function appReducer(state = initialState, action) {
       return { ...state, score: state.score + 1 };
     case LOST_MINIGAME:
       return { ...state, lives: state.lives - 1 };
+    case ADD_TO_PLAYED:
+      return { ...state, playedGames: [...state.playedGames, action.minigame] };
+    case SHIFT_PLAYED: {
+      const shiftedGames = state.playedGames.slice(1);
+      return { ...state, playedGames: shiftedGames };
+    }
     default:
       return state;
   }

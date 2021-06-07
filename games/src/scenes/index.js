@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import store, { endMinigame } from '../../../../client/redux';
+import store, { endMinigame } from '../../../client/redux';
 import timerStart from './helperFuncs';
 
 class JumpGame extends Phaser.Scene {
@@ -22,6 +22,7 @@ class JumpGame extends Phaser.Scene {
     this.load.image('background', 'api/assets/bg_layer1.png');
     this.load.image('platform', 'api/assets/ground_grass.png');
     this.load.image('bunny-stand', 'api/assets/bunny1_stand.png');
+    this.load.image('bunny-jump', 'api/assets/bunny1_jump.png');
 
     this.cursors = this.input.keyboard.createCursorKeys();
   }
@@ -88,8 +89,13 @@ class JumpGame extends Phaser.Scene {
 
     if (touchingDown) {
       this.player.setVelocityY(-300);
+      this.player.setTexture('bunny-jump');
     }
 
+    const velY = this.player.body.velocity.y;
+    if (velY > 0 && this.player.texture.key !== 'bunny-stand') {
+      this.player.setTexture('bunny-stand');
+    }
     if (this.cursors.left.isDown && !touchingDown) {
       this.player.setVelocityX(-200);
     } else if (this.cursors.right.isDown && !touchingDown) {
@@ -138,4 +144,20 @@ class JumpGame extends Phaser.Scene {
   }
 }
 
-export default JumpGame;
+class ArrowGame extends Phaser.Scene {
+  constructor() {
+    super('game');
+  }
+
+  preload() {
+    this.load.image('background', 'api/assets/bg_green.png');
+  }
+
+  create() {
+    this.add.image(240, 320, 'background');
+  }
+
+  update() {}
+}
+
+export default { JumpGame, ArrowGame };

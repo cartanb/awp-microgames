@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
 router.get('/assets/:name', (req, res, next) => {
   try {
     res.sendFile(
-      path.join(__dirname, `/../../games/jump-demo/assets/${req.params.name}`)
+      path.join(__dirname, `/../../games/assets/${req.params.name}`)
     );
   } catch (error) {
     next(error);

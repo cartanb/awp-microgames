@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Start from './Start';
 import Score from './Score';
 import Minigame from './Minigame';
