@@ -145,19 +145,96 @@ class JumpGame extends Phaser.Scene {
 }
 
 class ArrowGame extends Phaser.Scene {
+  fired = false;
+  failedGame = true;
+
   constructor() {
     super('game');
+    this.timerStart = timerStart.bind(this);
   }
 
   preload() {
     this.load.image('background', 'api/assets/bg_green.png');
+    this.load.image('bow-static', 'api/assets/bow1.png');
+    this.load.image('arrow', 'api/assets/arrow.png');
+    this.load.image('balloon', 'api/assets/balloon.png');
+    this.load.image('pop', 'api/assets/pop.png');
+
+    this.cursors = this.input.keyboard.createCursorKeys();
   }
 
   create() {
     this.add.image(240, 320, 'background');
+    this.bow = this.physics.add.sprite(106, 48, 'bow-static').setScale(4.0);
+    this.bow.body.setAllowGravity(false);
+    this.arrow = this.physics.add
+      .sprite(this.bow.x, this.bow.y, 'arrow')
+      .setScale(4.0)
+      .setSize(1, 8)
+      .setOffset(14, 3);
+    this.arrow.body.setAllowGravity(false);
+    this.balloon = this.physics.add
+      .staticImage(480, Phaser.Math.Between(100, 380), 'balloon')
+      .setScale(4.0)
+      .setSize(52, 64)
+      .setOffset(-16, -28);
+
+    this.physics.add.overlap(
+      this.arrow,
+      this.balloon,
+      this.handleHitBalloon,
+      undefined,
+      this
+    );
+
+    const style = { color: '#000', fontSize: 24 };
+    this.timer = this.add
+      .text(590, 10, 'TIME: ??', style)
+      .setScrollFactor(0)
+      .setOrigin(0.8, 0);
+
+    this.verb = this.add
+      .text(320, 190, 'SHOOT!', style)
+      .setScrollFactor(0)
+      .setOrigin(0.5, 0.5);
+
+    this.timerStart();
   }
 
-  update() {}
+  update() {
+    if (this.bow.y < 50 && !this.fired) {
+      this.bow.setVelocityY(250);
+    } else if (this.bow.y > 430 && !this.fired) {
+      this.bow.setVelocityY(-250);
+    }
+    if (this.cursors.space.isDown && !this.fired) {
+      this.fired = true;
+      this.bow.setVelocityY(0);
+      this.arrow.setVelocityX(550);
+    }
+    this.arrow.y = this.bow.y;
+  }
+
+  /**
+   * @param {Phaser.Physics.Arcade.Sprite} arrow
+   * @param {Phaser.Physics.Arcade.Sprit} balloon
+   */
+  handleHitBalloon(arrow, balloon) {
+    const balloonY = balloon.y;
+    this.physics.world.disableBody(balloon.body);
+    this.balloon.destroy(true);
+    this.pop = this.add.image(480, balloonY, 'pop').setScale(4.0);
+    this.failedGame = false;
+    setTimeout(() => {
+      this.pop.destroy(true);
+    }, 750);
+  }
+
+  gameEnd() {
+    store.dispatch(endMinigame(!this.failedGame ? 1 : -1));
+    clearInterval(this.timerId);
+    this.sys.game.destroy(true);
+  }
 }
 
 export default { JumpGame, ArrowGame };

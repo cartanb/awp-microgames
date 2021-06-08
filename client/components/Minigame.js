@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Phaser from 'phaser';
 import Games from '../../games/src/scenes';
-import { addToPlayed, shiftPlayed } from '../redux';
+import { addToPlayed, resetPlayed } from '../redux';
 
 const Minigame = () => {
   const dispatch = useDispatch();
@@ -13,15 +13,12 @@ const Minigame = () => {
     const games = Object.keys(Games).filter(
       (game) => !playedGames.includes(game)
     );
-    console.log(games.length);
+
     const randIdx = Math.floor(Math.random() * games.length);
-    console.log(randIdx);
+
     const nextGame = games[randIdx];
     dispatch(addToPlayed(nextGame));
-    console.log(playedGames.length);
-    if (playedGames.length === Object.keys(Games).length) {
-      dispatch(shiftPlayed());
-    }
+
     return nextGame;
   };
 
@@ -31,15 +28,22 @@ const Minigame = () => {
       width: 640,
       height: 480,
       parent: 'game',
-      scene: Games['ArrowGame'],
+      scene: Games[chooseGame()],
       physics: {
         default: 'arcade',
         arcade: {
           gravity: { y: 200 },
+          debug: true,
         },
       },
     });
   }, []);
+
+  useEffect(() => {
+    if (playedGames.length === Object.keys(Games).length) {
+      dispatch(resetPlayed());
+    }
+  }, [playedGames]);
 
   return (
     <div>
