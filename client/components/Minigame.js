@@ -28,7 +28,7 @@ const Minigame = () => {
       width: 640,
       height: 480,
       parent: 'game',
-      scene: Games[chooseGame()],
+      scene: Games['SwordGame'],
       physics: {
         default: 'arcade',
         arcade: {

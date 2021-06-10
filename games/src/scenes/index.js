@@ -217,7 +217,7 @@ class ArrowGame extends Phaser.Scene {
 
   /**
    * @param {Phaser.Physics.Arcade.Sprite} arrow
-   * @param {Phaser.Physics.Arcade.Sprit} balloon
+   * @param {Phaser.Physics.Arcade.Sprite} balloon
    */
   handleHitBalloon(arrow, balloon) {
     const balloonY = balloon.y;
@@ -237,4 +237,64 @@ class ArrowGame extends Phaser.Scene {
   }
 }
 
-export default { JumpGame, ArrowGame };
+class SwordGame extends Phaser.Scene {
+  constructor() {
+    super('game');
+  }
+
+  preload() {
+    this.load.image('background', 'api/assets/bg_pink.png');
+    this.load.image('ground', 'api/assets/ground_sand.png');
+    this.load.atlas(
+      'boss_stand',
+      'api/assets/boss_stand_sheet.png',
+      'api/assets/boss_stand.json'
+    );
+    this.load.atlas(
+      'hero_stand',
+      'api/assets/hero_stand_sheet.png',
+      'api/assets/hero_stand.json'
+    );
+  }
+
+  create() {
+    this.add.image(240, 320, 'background');
+    this.ground = this.physics.add
+      .staticImage(320, 490, 'ground')
+      .setScale(1.15)
+      .setOffset(0, -8);
+
+    this.boss = this.physics.add.sprite(390, 375, 'boss_stand').setScale(2.25);
+    this.boss.anims.create({
+      key: 'stand',
+      frames: this.anims.generateFrameNames('boss_stand', {
+        prefix: 'boss_stand',
+        start: 1,
+        end: 4,
+      }),
+      frameRate: 8,
+      repeat: -1,
+    });
+    this.boss.play('stand');
+
+    this.hero = this.physics.add.sprite(305, 385, 'hero_stand').setScale(1.5);
+    this.hero.anims.create({
+      key: 'stand',
+      frames: this.anims.generateFrameNames('hero_stand', {
+        prefix: 'hero_stand',
+        start: 1,
+        end: 4,
+      }),
+      frameRate: 4,
+      repeat: -1,
+    });
+    this.hero.play('stand');
+
+    this.physics.add.collider(this.boss, this.ground);
+    this.physics.add.collider(this.hero, this.ground);
+  }
+
+  update() {}
+}
+
+export default { JumpGame, ArrowGame, SwordGame };
