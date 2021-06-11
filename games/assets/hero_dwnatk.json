@@ -1,33 +1,33 @@
 {
 	"textures": [
 		{
-			"image": "hero_stand_sheet.png",
+			"image": "hero_dwnatk_sheet.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 35,
-				"h": 230
+				"w": 99,
+				"h": 187
 			},
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "hero_stand1.png",
+					"filename": "hero_dwnatk3.png",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
-						"w": 33,
-						"h": 56
+						"w": 96,
+						"h": 84
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 33,
-						"h": 56
+						"w": 96,
+						"h": 84
 					},
 					"frame": {
 						"x": 1,
 						"y": 1,
-						"w": 33,
-						"h": 56
+						"w": 96,
+						"h": 84
 					},
 					"anchor": {
 						"x": 0,
@@ -35,48 +35,23 @@
 					}
 				},
 				{
-					"filename": "hero_stand2.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 33,
-						"h": 56
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 33,
-						"h": 56
-					},
-					"frame": {
-						"x": 1,
-						"y": 59,
-						"w": 33,
-						"h": 56
-					},
-					"anchor": {
-						"x": 0,
-						"y": 1
-					}
-				},
-				{
-					"filename": "hero_stand3.png",
+					"filename": "hero_dwnatk2.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 33,
-						"h": 56
+						"w": 96,
+						"h": 84
 					},
 					"spriteSourceSize": {
 						"x": 0,
-						"y": 1,
-						"w": 33,
+						"y": 29,
+						"w": 49,
 						"h": 55
 					},
 					"frame": {
 						"x": 1,
-						"y": 117,
-						"w": 33,
+						"y": 87,
+						"w": 49,
 						"h": 55
 					},
 					"anchor": {
@@ -85,24 +60,49 @@
 					}
 				},
 				{
-					"filename": "hero_stand4.png",
+					"filename": "hero_dwnatk4.png",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 33,
-						"h": 56
+						"w": 96,
+						"h": 84
 					},
 					"spriteSourceSize": {
 						"x": 0,
-						"y": 1,
-						"w": 33,
-						"h": 55
+						"y": 42,
+						"w": 74,
+						"h": 42
 					},
 					"frame": {
 						"x": 1,
-						"y": 174,
-						"w": 33,
-						"h": 55
+						"y": 144,
+						"w": 74,
+						"h": 42
+					},
+					"anchor": {
+						"x": 0,
+						"y": 1
+					}
+				},
+				{
+					"filename": "hero_dwnatk1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 96,
+						"h": 84
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 32,
+						"w": 46,
+						"h": 52
+					},
+					"frame": {
+						"x": 52,
+						"y": 87,
+						"w": 46,
+						"h": 52
 					},
 					"anchor": {
 						"x": 0,
@@ -115,6 +115,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:2024a8330869cd589d589099e8135de6:e9cb658b1c2ec404a62cdd9629b4e7c4:af9f6cc65650dea4d4bb4a269475177c$"
+		"smartupdate": "$TexturePacker:SmartUpdate:b92bec21fd99f8524043ae9bbd7b67fa:1fc97e89d798bebaef62dd56d23afa98:e3f90049cbe3463e828e4f1b36c9818e$"
 	}
 }

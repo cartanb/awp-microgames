@@ -1,33 +1,83 @@
 {
 	"textures": [
 		{
-			"image": "hero_stand_sheet.png",
+			"image": "hero_upatk_sheet.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 35,
-				"h": 230
+				"w": 207,
+				"h": 67
 			},
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "hero_stand1.png",
+					"filename": "hero_upatk4.png",
 					"rotated": false,
-					"trimmed": false,
+					"trimmed": true,
 					"sourceSize": {
-						"w": 33,
-						"h": 56
+						"w": 94,
+						"h": 65
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 10,
+						"w": 36,
+						"h": 55
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 36,
+						"h": 55
+					},
+					"anchor": {
+						"x": 0,
+						"y": 1
+					}
+				},
+				{
+					"filename": "hero_upatk3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 94,
+						"h": 65
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 4,
+						"w": 94,
+						"h": 61
+					},
+					"frame": {
+						"x": 39,
+						"y": 1,
+						"w": 94,
+						"h": 61
+					},
+					"anchor": {
+						"x": 0,
+						"y": 1
+					}
+				},
+				{
+					"filename": "hero_upatk1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 94,
+						"h": 65
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 33,
-						"h": 56
+						"w": 32,
+						"h": 65
 					},
 					"frame": {
-						"x": 1,
+						"x": 135,
 						"y": 1,
-						"w": 33,
-						"h": 56
+						"w": 32,
+						"h": 65
 					},
 					"anchor": {
 						"x": 0,
@@ -35,74 +85,24 @@
 					}
 				},
 				{
-					"filename": "hero_stand2.png",
+					"filename": "hero_upatk2.png",
 					"rotated": false,
-					"trimmed": false,
+					"trimmed": true,
 					"sourceSize": {
-						"w": 33,
-						"h": 56
+						"w": 94,
+						"h": 65
 					},
 					"spriteSourceSize": {
 						"x": 0,
 						"y": 0,
-						"w": 33,
-						"h": 56
+						"w": 37,
+						"h": 65
 					},
 					"frame": {
-						"x": 1,
-						"y": 59,
-						"w": 33,
-						"h": 56
-					},
-					"anchor": {
-						"x": 0,
-						"y": 1
-					}
-				},
-				{
-					"filename": "hero_stand3.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 33,
-						"h": 56
-					},
-					"spriteSourceSize": {
-						"x": 0,
+						"x": 169,
 						"y": 1,
-						"w": 33,
-						"h": 55
-					},
-					"frame": {
-						"x": 1,
-						"y": 117,
-						"w": 33,
-						"h": 55
-					},
-					"anchor": {
-						"x": 0,
-						"y": 1
-					}
-				},
-				{
-					"filename": "hero_stand4.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 33,
-						"h": 56
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 1,
-						"w": 33,
-						"h": 55
-					},
-					"frame": {
-						"x": 1,
-						"y": 174,
-						"w": 33,
-						"h": 55
+						"w": 37,
+						"h": 65
 					},
 					"anchor": {
 						"x": 0,
@@ -115,6 +115,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:2024a8330869cd589d589099e8135de6:e9cb658b1c2ec404a62cdd9629b4e7c4:af9f6cc65650dea4d4bb4a269475177c$"
+		"smartupdate": "$TexturePacker:SmartUpdate:87f9f34f876fd363a94136b5046afd2f:e340e9217363d0e2c0d91476270e0061:51ac5b478f2189ba03677c6bb43a684f$"
 	}
 }

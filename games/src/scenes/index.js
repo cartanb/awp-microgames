@@ -238,8 +238,15 @@ class ArrowGame extends Phaser.Scene {
 }
 
 class SwordGame extends Phaser.Scene {
+  attacking = false;
+  updwn = 1;
+  cooldown = false;
+  bossHp = 8;
+  failedGame = true;
+
   constructor() {
     super('game');
+    this.timerStart = timerStart.bind(this);
   }
 
   preload() {
@@ -255,6 +262,23 @@ class SwordGame extends Phaser.Scene {
       'api/assets/hero_stand_sheet.png',
       'api/assets/hero_stand.json'
     );
+    this.load.atlas(
+      'hero_upatk',
+      'api/assets/hero_upatk_sheet.png',
+      'api/assets/hero_upatk.json'
+    );
+    this.load.atlas(
+      'hero_dwnatk',
+      'api/assets/hero_dwnatk_sheet.png',
+      'api/assets/hero_dwnatk.json'
+    );
+    this.load.atlas(
+      'boss_death',
+      'api/assets/boss_death_sheet.png',
+      'api/assets/boss_death.json'
+    );
+
+    this.cursors = this.input.keyboard.createCursorKeys();
   }
 
   create() {
@@ -277,24 +301,110 @@ class SwordGame extends Phaser.Scene {
     });
     this.boss.play('stand');
 
-    this.hero = this.physics.add.sprite(305, 385, 'hero_stand').setScale(1.5);
+    this.hero = this.physics.add.sprite(280, 425, 'hero_stand').setScale(1.5);
     this.hero.anims.create({
       key: 'stand',
       frames: this.anims.generateFrameNames('hero_stand', {
         prefix: 'hero_stand',
+        suffix: '.png',
         start: 1,
         end: 4,
       }),
       frameRate: 4,
       repeat: -1,
     });
+    this.hero.anims.create({
+      key: 'upatk',
+      frames: this.anims.generateFrameNames('hero_upatk', {
+        prefix: 'hero_upatk',
+        suffix: '.png',
+        start: 1,
+        end: 4,
+      }),
+      frameRate: 24,
+      repeat: 0,
+    });
+    this.hero.anims.create({
+      key: 'dwnatk',
+      frames: this.anims.generateFrameNames('hero_dwnatk', {
+        prefix: 'hero_dwnatk',
+        suffix: '.png',
+        start: 1,
+        end: 4,
+      }),
+      frameRate: 16,
+      repeat: 0,
+    });
     this.hero.play('stand');
 
     this.physics.add.collider(this.boss, this.ground);
     this.physics.add.collider(this.hero, this.ground);
+
+    const style = { color: '#000', fontSize: 24 };
+    this.timer = this.add
+      .text(590, 10, 'TIME: ??', style)
+      .setScrollFactor(0)
+      .setOrigin(0.8, 0);
+
+    this.verb = this.add
+      .text(320, 190, 'FIGHT!', style)
+      .setScrollFactor(0)
+      .setOrigin(0.5, 0.5);
+
+    this.timerStart();
   }
 
-  update() {}
+  update() {
+    if (this.cursors.space.isDown && !this.attacking && !this.cooldown) {
+      this.attacking = true;
+      this.cooldown = true;
+      this.hero.setVelocityY(-33);
+      if (this.updwn === 1) {
+        this.hero.play('upatk');
+      } else {
+        this.hero.play('dwnatk');
+      }
+      if (this.bossHp > 0) this.bossHp -= 1;
+      this.updwn = -this.updwn;
+      setTimeout(() => {
+        this.hero.play('stand');
+        this.cooldown = false;
+      }, 333);
+    }
+    if (this.cursors.space.isUp && this.attacking && !this.cooldown) {
+      this.attacking = false;
+    }
+    if (this.bossHp < 1 && !this.bossDeath) {
+      this.failedGame = false;
+      this.bossDeath = 'placeholder';
+      this.boss.setVelocityY(-150);
+      setTimeout(() => {
+        this.boss.destroy(true);
+        this.bossDeath = this.physics.add
+          .sprite(390, 240, 'boss_death')
+          .setScale(2.25);
+        this.physics.add.collider(this.bossDeath, this.ground);
+        this.bossDeath.anims.create({
+          key: 'death',
+          frames: this.anims.generateFrameNames('boss_death', {
+            prefix: 'boss_death',
+            suffix: '.png',
+            start: 1,
+            end: 14,
+          }),
+          frameRate: 21,
+          repeat: 0,
+        });
+        this.bossDeath.play('death');
+      }, 333);
+    }
+  }
+
+  gameEnd() {
+    store.dispatch(endMinigame(!this.failedGame ? 1 : -1));
+    clearInterval(this.timerId);
+    this.sys.game.destroy(true);
+  }
 }
 
 export default { JumpGame, ArrowGame, SwordGame };

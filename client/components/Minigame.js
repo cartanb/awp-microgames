@@ -28,12 +28,11 @@ const Minigame = () => {
       width: 640,
       height: 480,
       parent: 'game',
-      scene: Games['SwordGame'],
+      scene: Games[chooseGame()],
       physics: {
         default: 'arcade',
         arcade: {
           gravity: { y: 200 },
-          debug: true,
         },
       },
     });
