@@ -10,6 +10,8 @@ const Start = () => {
 
   return (
     <div>
+      <h2>Welcome!</h2>
+      <h3>Each microgame lasts 5 seconds and uses the arrow keys <strong>OR</strong> the spacebar - not both!</h3>
       <button type="button" onClick={handleClick}>
         Start Game
       </button>

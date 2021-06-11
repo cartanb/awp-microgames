@@ -1,5 +1,10 @@
 body {
   background: linear-gradient(#d60270, #0038a8);
-  height: 100vw;
+  height: 100vh;
   font-size: 2.15rem;
+}
+
+h1 {
+  margin-block-start: 0.05em;
+  margin-block-end: 0.05em;
 }
